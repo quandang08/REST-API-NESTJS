@@ -1,0 +1,19 @@
+# Dockerfile.dev
+FROM node:20-bullseye-slim
+
+# Tạo thư mục làm việc
+WORKDIR /usr/src/app
+
+# Cài đặt Nest CLI (để chạy hot reload)
+RUN npm install -g @nestjs/cli
+
+# Copy package.json để cài dependency
+COPY package*.json ./
+
+RUN npm install
+
+# Copy toàn bộ source code
+COPY . .
+
+# Bật hot-reload (nodemon)
+CMD ["npm", "run", "start:dev"]
